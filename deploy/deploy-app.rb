@@ -136,7 +136,7 @@ class Deploy
     @scp.upload!(File.expand_path('nginx-script', __dir__), tmp, recursive: true)
     checked_run('sudo', 'rm', '/etc/nginx/sites-enabled/default')
     checked_run('sudo', 'rm', '/etc/nginx/sites-available/default')
-    checked_run('sudo', 'cp', '/tmp/temp-dir/trains', '/etc/nginx/sites-available/')
+    checked_run('sudo', 'cp', '/tmp/nginxtmp/trains', '/etc/nginx/sites-available/')
     checked_run('sudo', 'ln', '-s', '/etc/nginx/sites-available/trains', '/etc/nginx/sites-enabled/trains')
     checked_run('sudo', 'systemctl', 'restart', 'nginx')
   end
