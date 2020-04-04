@@ -11,7 +11,6 @@ APP_DIR = File.expand_path('/srv/trains')
 SERVICE_NAME = 'application'
 APP_USER = 'trains'
 
-
 class Deploy
   def deploy(user, host, password)
     Net::SSH.start(host, user, password: password) do |connection|
@@ -24,7 +23,7 @@ class Deploy
       setup_systemd_service(APP_DIR)
       enable_systemd_service
       restart_systemd_service
-      nginx_set
+      nginx
     end
   end
 
@@ -86,7 +85,7 @@ class Deploy
     checked_run('sudo', File.join(ruby_installation_path, 'bundle'),
       'install', '--gemfile', File.join(application_directory, 'Gemfile'),
       '--jobs=4', '--retry=3',
-      '--without=development deployment'
+      '--without=deployment'
     )
   end
 
@@ -122,20 +121,6 @@ class Deploy
     checked_run('sudo', 'systemctl', 'daemon-reload')
   end
 
-  def nginx_set
-    checked_run('sudo', 'apt-get', 'install', '-y', 'nginx')
-    temp_dir = '/tmp/temp-dir'
-    checked_run('sudo', 'rm', '-rf', temp_dir)
-    puts 'Uploading'
-    @scp.upload!(File.expand_path('../nginx', __dir__), temp_dir, recursive: true)
-    checked_run('sudo', 'cp', '/tmp/temp-dir/site', '/etc/nginx/sites-available/')
-    checked_run('sudo', 'rm', '/etc/nginx/sites-available/default')
-    checked_run('sudo', 'ln', '-s', '/etc/nginx/sites-available/trains', '/etc/nginx/sites-enabled/trains')
-    checked_run('sudo', 'rm', '/etc/nginx/sites-enabled/default')
-    checked_run('sudo', 'systemctl', 'restart', 'nginx')
-    checked_run('sudo', 'nginx', '-t')
-  end
-
   def enable_systemd_service
     checked_run('sudo', 'systemctl', 'enable', SERVICE_NAME)
   end
@@ -143,17 +128,21 @@ class Deploy
   def restart_systemd_service
     checked_run('sudo', 'systemctl', 'restart', SERVICE_NAME)
   end
-end
 
-def host_ip(ip)
-
+  def nginx
+    checked_run('sudo', 'apt-get', 'install', '-y', 'nginx')
+    tmp = '/tmp/nginxtmp'
+    checked_run('sudo', 'rm', '-rf', tmp)
+    @scp.upload!(File.expand_path('nginx-script', __dir__), tmp, recursive: true)
+    checked_run('sudo', 'rm', '/etc/nginx/sites-enabled/default')
+    checked_run('sudo', 'rm', '/etc/nginx/sites-available/default')
+    checked_run('sudo', 'cp', '/tmp/temp-dir/trains', '/etc/nginx/sites-available/')
+    checked_run('sudo', 'ln', '-s', '/etc/nginx/sites-available/trains', '/etc/nginx/sites-enabled/trains')
+    checked_run('sudo', 'systemctl', 'restart', 'nginx')
+  end
 end
 
 if __FILE__ == $0
-  if ARGV.length != 3
-    puts "We need exactly 3 agruments (user, 'host's IP', password)"
-    exit
-  end
   deployer = Deploy.new
   deployer.deploy(ARGV[0], ARGV[1], ARGV[2])
 end
