@@ -1,0 +1,29 @@
+<form action="/sort_range" method="get">
+  
+  <div class="col">
+    <label for="point_a">Пункт отправления</label>
+    <input type="text" class="form-control" id="point_a" name="point_a" placeholder="Введите город" />
+    <% if @errors %>
+      <i><%= @errors[:point_a] %></i>
+    <% end %>
+  </div>
+
+  <div class="col">
+    <label for="date_a">С</label>
+    <input type="date" class="form-control" id="date_a" name="date_a" />
+    <% if @errors %>
+      <i><%= @errors[:date_a] %></i>
+    <% end %>
+  </div>
+
+  <div class="col">
+    <label for="date_b">По</label>
+    <input type="date" class="form-control" id="date_b" name="date_b" />
+    <% if @errors %>
+      <i><%= @errors[:date_b] %></i>
+    <% end %>
+  </div>
+
+  <br><button type="submit" class="btn btn-primary">Найти</button>
+  
+</form>

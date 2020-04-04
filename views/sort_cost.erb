@@ -1,0 +1,36 @@
+<form action="/sort_point_date_cost" method="post">
+
+  <div class="col">
+    <label for="point_a">Пункт отправления</label>
+    <input type="text" class="form-control" id="point_a" name="point_a" placeholder="Введите город" />
+    <% if @errors %>
+      <i><%= @errors[:point_a] %></i>
+    <% end %>
+  </div>
+
+  <div class="col">
+    <label for="point_b">Пункт назначения</label>
+    <input type="text" class="form-control" id="point_b" name="point_b" placeholder="Введите город" />
+    <% if @errors %>
+      <i><%= @errors[:point_b] %></i>
+    <% end %>
+  </div>
+
+  <div class="col">
+    <label for="date_first">Дата отправления</label>
+    <input type="date" class="form-control" id="date_a" name="date_a" />
+    <% if @errors %>
+      <i><%= @errors[:date_a] %></i>
+    <% end %>
+  </div>
+
+  <div class="col">
+    <label for="cost">Стоимость</label>
+    <input type="number" class="form-control" id="cost" name="cost" placeholder="Введите стоимость" />
+    <% if @errors %>
+      <i><%= @errors[:cost] %></i>
+    <% end %>
+  </div>
+
+  <br><button type="submit" class="btn btn-primary">Найти</button>
+</form>

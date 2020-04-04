@@ -1,0 +1,22 @@
+<h3>Поезда</h3>
+
+<% if @list.empty? %>
+  <div class="alert alert-warning" role="alert">
+    Ничего не нашлось
+  </div>
+<% end %>
+
+<% @list.each do |train| %>
+  <ul>
+    <li><%= "Номер поезда: #{train.number}" %></li>
+    <li><%= "Пункт отправления: #{train.point_a}" %></li>
+    <li><%= "Дата отправления: #{train.date_a}" %></li>
+    <li><%= "Время отправления: #{train.time_a}" %></li>
+    <li><%= "Пункт прибытия: #{train.point_b}" %></li>
+    <li><%= "Дата прибытия: #{train.date_b}" %></li>
+    <li><%= "Время прибытия: #{train.time_b}" %></li>
+    <li><%= "Стоимость: #{train.cost}" %></li>
+  </ul>
+<% end %>
+
+<a class="btn btn-primary" href="/list_trains" role="button">Вернуться к списку</a>

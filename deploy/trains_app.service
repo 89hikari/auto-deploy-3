@@ -1,0 +1,12 @@
+[Unit]
+Description = Sinatra application
+
+[Service]
+Environment = PATH=C:/opt/rubies/ruby-2.6.5/bin:/usr/local/bin:/usr/bin:/bin
+WorkingDirectory = C:/srv/trains
+Type = simple
+ExecStart = C:/opt/rubies/ruby-2.6.5/bin/bundle exec ruby app.rb
+
+[Install]
+WantedBy = multi-user.target
+

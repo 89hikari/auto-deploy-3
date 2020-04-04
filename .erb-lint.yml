@@ -1,0 +1,21 @@
+---
+linters:
+  FinalNewline:
+    enabled: true
+  SpaceAroundErbTag:
+    enabled: true
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_from:
+        - .rubocop.yml
+      Layout/InitialIndentation:
+        Enabled: false
+      Layout/TrailingBlankLines:
+        Enabled: false
+      Layout/TrailingWhitespace:
+        Enabled: false
+      Style/FrozenStringLiteralComment:
+        Enabled: false
+      Metrics/LineLength:
+        Enabled: false

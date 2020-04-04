@@ -1,0 +1,13 @@
+<h3>Города</h3>
+
+<% if @list.empty? %>
+  <div class="alert alert-warning" role="alert">
+    Ничего не нашлось
+  </div>
+<% end %>
+
+<% @list.each do |city| %>
+  <li><%= "Город: #{city}" %></li>
+<% end %>
+
+<a class="btn btn-primary" href="/list_trains" role="button">Вернуться к списку</a>

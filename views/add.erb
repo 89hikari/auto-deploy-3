@@ -1,0 +1,86 @@
+<h3 class="text-center">Добавление поезда</h3><br>
+
+<form action="/list_trains/add_train" method="post">
+  <div class="container">
+    <div class="form-row">
+      <div class="col">
+        <label for="number">Номер</label>
+        <input type="number" class="form-control" id="number" name="number" value="<%= @train.number %>" placeholder="Введите номер">
+        <% if @error %>
+          <i><%= @error[:number] %></i>
+        <% end %>
+        <% if @exist %>
+          <i><%= @exist[:number] %></i>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="point_a">Пункт отправления</label>
+        <input type="text" class="form-control" id="point_a" name="point_a" value="<%= @train.point_a %>" placeholder="Введите город">
+        <% if @error %>
+          <i><%= @error[:point_a] %></i>
+          <i><%= @error[:city_hit] %></i>
+        <% end %>
+      </div>
+
+      <div class="col">
+        <label for="date_a">Дата отправления</label>
+        <input type="date" class="form-control" id="date_a"  name="date_a" value="<%= @train.date_a %>">
+        <% if @error %>
+          <i><%= @error[:date_a] %></i>
+          <i><%= @error[:date_hit] %></i>
+        <% end %>
+      </div>
+
+      <div class="col">
+        <label for="time_a">Время отправления</label>
+        <input type="time" class="form-control" id="time_a" name="time_a" value="<%= @train.time_a %>">
+        <% if @error %>
+          <i><%= @error[:time_a] %></i>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-row">
+    <div class="col">
+        <label for="point_b">Пункт прибытия</label>
+        <input type="text" class="form-control" id="point_b" name="point_b" value="<%= @train.point_b %>" placeholder="Введите город">
+        <% if @error %>
+          <i><%= @error[:point_b] %></i>
+          <i><%= @error[:city_hit] %></i>
+        <% end %>
+      </div>
+      
+      <div class="col">
+        <label for="date_b">Дата прибытия</label>
+        <input type="date" class="form-control" id="date_b" name="date_b" value="<%= @train.date_b %>">
+        <% if @error %>
+          <i><%= @error[:date_b] %></i>
+          <i><%= @error[:date_hit] %></i>
+        <% end %>
+      </div>
+
+      <div class="col">
+        <label for="time_b">Время прибытия</label>
+        <input type="time" class="form-control" id="time_b" name="time_b" value="<%= @train.time_b %>">
+        <% if @error %>
+          <i><%= @error[:time_b] %></i>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="cost">Стоимость</label>
+        <input type="number" class="form-control" id="cost" name="cost" value="<%= @train.cost %>" placeholder="Введите стоимость">
+        <% if @error %>
+          <i><%= @error[:cost] %></i>
+        <% end %>
+      </div>
+    </div>
+
+    <br /><button type="submit" class="btn btn-primary btn-lg btn-block">Добавить поезд</button>
+  </div>
+</form>
